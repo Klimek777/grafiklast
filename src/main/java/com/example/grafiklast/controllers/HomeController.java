@@ -12,12 +12,16 @@ public class HomeController {
     @GetMapping("/home")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model, HttpSession session) {
         model.addAttribute("name", name);
-        System.out.println(session.getAttribute("loggedIn"));
-        if((Boolean) session.getAttribute("loggedIn") == true) {
+        if(session.isNew()){
+            if((Boolean) session.getAttribute("loggedIn") == true) {
                 return "home_manager";
+            }
+            else {
+                return "redirect:/login";
+            }
         }
         else {
-            return "redirect:/login";
+            return "login";
         }
     }
 
