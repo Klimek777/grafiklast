@@ -12,8 +12,9 @@ public class HomeController {
     @GetMapping("/home")
     public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model, HttpSession session) {
         model.addAttribute("name", name);
-        if((Boolean) session.getAttribute("loggedIn") == true) {
-                return "home_manager";
+        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+        if(loggedIn != null && loggedIn) {
+            return "home_manager";
         }
         else {
             return "redirect:/login";
