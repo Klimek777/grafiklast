@@ -14,7 +14,7 @@
           <div class="row d-flex justify-content-center align-items-center h-90">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <form method="POST" action="/user/login" enctype="multipart/form-data" class="card-body p-5 text-center">
+                <form method="POST" action="/signing_in" enctype="multipart/form-data" class="card-body p-5 text-center">
       
                   <div class="">
                     <h2>ShiftMate</h2>
@@ -23,12 +23,12 @@
                     <div class="form-outline form-white mb-4">
                         <label class="form-label" for="typeEmailX">Email</label>
 
-                      <input type="email" id="typeEmailX" class="form-control form-control-lg" />
+                      <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" />
                     </div>
       
                     <div class="form-outline form-white mb-0">
                         <label class="form-label" for="typePasswordX">Password</label>
-                      <input type="password" id="typePasswordX" class="form-control form-control-lg" />
+                      <input name="password" type="password" id="typePasswordX" class="form-control form-control-lg" />
                       
                     </div>
       

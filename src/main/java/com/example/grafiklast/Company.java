@@ -5,6 +5,9 @@ import com.google.firebase.database.annotations.NotNull;
 import jakarta.validation.constraints.NotEmpty;
 
 public class Company {
+
+    private String companyId;
+
     @NotNull
     @NotEmpty
     private String companyName;
@@ -18,6 +21,7 @@ public class Company {
     private String email;
 
     public Company(String companyName, String password, String email) {
+                this.companyId = "";
                 this.companyName = companyName;
                 this.password = password;
                 this.email = email;
@@ -45,5 +49,9 @@ public class Company {
         
             public void setEmail(String email) {
                 this.email = email;
+            }
+
+            public void setCompanyId(String documentId) {
+                this.companyId = documentId;
             }
 }
