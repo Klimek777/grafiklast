@@ -18,11 +18,7 @@ public class UserService {
 
     public static final String COL_NAME="users";
 
-    public String saveUserDetails(User user) throws InterruptedException, ExecutionException {
-        Firestore dbFirestore = FirestoreClient.getFirestore();
-        ApiFuture<WriteResult> collectionsApiFuture = dbFirestore.collection(COL_NAME).document(user.getName()).set(user);
-        return collectionsApiFuture.get().getUpdateTime().toString();
-    }
+
 
     public User getUserDetails(String name) throws InterruptedException, ExecutionException {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -45,7 +41,7 @@ public class UserService {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         ApiFuture<WriteResult> update = dbFirestore.collection(COL_NAME)
                 .document(user.getName())
-                .update("age", user.getAge(), "city", user.getCity());
+                .update("email", user.getEmail(), "password", user.getPassword());
         return update.get().getUpdateTime().toString();
     }
 

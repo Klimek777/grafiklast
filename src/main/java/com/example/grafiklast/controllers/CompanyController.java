@@ -35,7 +35,7 @@ public class CompanyController {
     @PostMapping(value = "/company/create", consumes = "multipart/form-data")
     public String createCompany(@ModelAttribute Company company) throws InterruptedException, ExecutionException {
         if(registerCompany(company) == "success")
-            return "home_manager";
+            return "redirect:/login";
         return "login";
     }
 
