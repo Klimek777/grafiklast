@@ -24,7 +24,6 @@ public class CompanyController {
     public Company getCompany(@RequestParam String name ) throws InterruptedException, ExecutionException{
         return companyService.getCompanyDetails(name);
     }
-
     @PutMapping("/company/update")
     public String updateCompany(@RequestBody Company company) throws InterruptedException, ExecutionException {
         return companyService.updateCompanyDetails(company);

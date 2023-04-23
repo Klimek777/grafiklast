@@ -36,8 +36,8 @@ public class LoginController {
     }
 
     @PostMapping(value = "/signing_in", consumes = "multipart/form-data")
-    public String createCompany(@ModelAttribute Company company, HttpSession session) throws InterruptedException, FirebaseAuthException {
-        if (signInUserOrCompany(company) == "success") {
+    public String loginCompany(@ModelAttribute Company company, HttpSession session) throws InterruptedException, FirebaseAuthException {
+        if (signInUserOrCompany(company, session) == "success") {
             session.setAttribute("loggedIn", true);
             return "redirect:/home";
         }
@@ -46,12 +46,13 @@ public class LoginController {
         }
     }
 
-    public String signInUserOrCompany(Company company) throws FirebaseAuthException {
+    public String signInUserOrCompany(Company company, HttpSession session) throws FirebaseAuthException {
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         // Pobranie danych logowania z żądania
         String email = company.getEmail();
         String password = company.getPassword();
+        String companyName = company.getCompanyName();
 
         // Autentykacja użytkownika przy użyciu Firebase Authentication
         FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -71,6 +72,7 @@ public class LoginController {
                 String formPasswordHash = CompanyService.getMd5Hash(password);
 
                 if(passwordHash.equals(formPasswordHash))  {
+                    session.setAttribute("companyName", document.getString("companyName"));
                     return "success";
                 }
             }
