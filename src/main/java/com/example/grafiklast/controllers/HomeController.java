@@ -9,9 +9,19 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
+    @GetMapping("/")
+    public String defaultPage(HttpSession session) {
+        Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
+        if(loggedIn != null && loggedIn) {
+            return "redirect:/home";
+        }
+        else {
+            return "redirect:/login";
+        }
+    }
+
     @GetMapping("/home")
-    public String greeting(@RequestParam(name="name", required=false, defaultValue="World") String name, Model model, HttpSession session) {
-        model.addAttribute("name", name);
+    public String homePage(HttpSession session) {
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
         if(loggedIn != null && loggedIn) {
             return "home_manager";

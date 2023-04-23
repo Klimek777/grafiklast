@@ -3,27 +3,36 @@ package com.example.grafiklast;
 import com.google.firebase.database.annotations.NotNull;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 public class Company {
 
     private String companyId;
 
     @NotNull
-    @NotEmpty
+    @NotEmpty(message = "This field cannot be empty!")
     private String companyName;
-    
-    @NotNull
-    @NotEmpty
-    private String password;
-    
-    @NotNull
-    @NotEmpty
-    private String email;
 
-    public Company(String companyName, String password, String email) {
+    @NotNull
+    @NotEmpty(message = "This field cannot be empty!")
+    private String email;
+    
+    @NotNull
+    @NotEmpty(message = "This field cannot be empty!")
+    @Size(min = 6, message = "Password must contain at least 6 signs!")
+    @Size(max = 30, message = "Password cannot be longer than 30 signs!")
+    private String password;
+
+    @NotNull
+    @NotEmpty(message = "This field cannot be empty!")
+
+    private String confirmPassword;
+
+    public Company(String companyName, String password, String confirmPassword, String email) {
                 this.companyId = "";
                 this.companyName = companyName;
                 this.password = password;
+                this.confirmPassword = confirmPassword;
                 this.email = email;
             }
         
@@ -41,6 +50,14 @@ public class Company {
         
             public void setPassword(String password) {
                 this.password = password;
+            }
+
+            public String getConfirmPassword() {
+                return confirmPassword;
+            }
+        
+            public void setConfirmPassword(String confirmPassword) {
+                this.confirmPassword = confirmPassword;
             }
         
             public String getEmail() {

@@ -1,6 +1,8 @@
 package com.example.grafiklast.controllers;
 
 import com.example.grafiklast.controllers.CompanyController;
+import com.example.grafiklast.services.CompanyService;
+
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.stereotype.Controller;
@@ -66,7 +68,7 @@ public class LoginController {
             QuerySnapshot querySnapshot = future.get();
             for (DocumentSnapshot document : querySnapshot.getDocuments()) {
                 String passwordHash = document.getString("password");
-                String formPasswordHash = CompanyController.getMd5Hash(password);
+                String formPasswordHash = CompanyService.getMd5Hash(password);
 
                 if(passwordHash.equals(formPasswordHash))  {
                     return "success";
