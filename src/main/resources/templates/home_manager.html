@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -36,7 +36,7 @@
             </nav>
             <div id="header" class="d-flex align-items-center justify-content-between p-4 w-75 mx-auto">
                 <h1>
-                    Welcome, Dawid
+                    Welcome, <span th:text="${userEmail}"></span>
                 </h1>
                 <a href="add_people">                <button type="button" class="btn btn-secondary">Add People +</button>
                 </a>
@@ -46,7 +46,7 @@
             <div class=" d-flex justify-content-around">
                 <!--single line list with avtar -->
                 <ul class="list-group pmd-list pmd-card-list pmd-list-avatar w-75 p-2 mx-auto">
-                    <li class="list-group-item d-flex justify-content-between align-items-center border rounded-pill "
+                    <li th:each="user : ${userList}" class="list-group-item d-flex justify-content-between align-items-center border rounded-pill "
                         style="border-color: lightgray !important; border-width: 2px !important; margin-bottom: 10px !important;">
                         <div class="d-flex justify-content-start">
                             <a href="" class="pmd-avatar-list-img">
@@ -54,7 +54,7 @@
                                      data-src="holder.js/40x40"  src="https://i.pravatar.cc/400?img=68"
                                      data-holder-rendered="true" />
                             </a>
-                            <div class="p-3 " style="font-size: 20px;"> Dawid Klimowicz</div>
+                            <div class="p-3 " style="font-size: 20px;" th:text="${user.name}"></div>
                         </div>
 
                         <!-- Example single danger button -->
@@ -73,63 +73,6 @@
                             arrow_forward_ios
                         </span>
                     </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center border rounded-pill "
-                        style="border-color: lightgray !important; border-width: 2px !important; margin-bottom: 10px !important;">
-                        <div class="d-flex justify-content-start">
-                            <a href="javascript:void(0);" class="pmd-avatar-list-img">
-                                <img class="avatar avatar-64 bg-light rounded-circle text-white img-fluid" alt="40x40"
-                                     data-src="holder.js/40x40" src="https://i.pravatar.cc/400?img=69"
-                                     data-holder-rendered="true" />
-                            </a>
-                            <div class="p-3 " style="font-size: 20px;"> Michał Stefański</div>
-                        </div>
-
-                        <!-- Example single danger button -->
-                        <div class="btn-group ">
-                            <button type="button" class="btn btn-danger dropdown-toggle rounded-pill"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="background-color: lightcoral !important; color: black !important; border-color: lightcoral !important;">
-                                To Do
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">Done</a>
-
-                            </div>
-                        </div>
-                        <span class="material-symbols-outlined">
-                            arrow_forward_ios
-                        </span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center border rounded-pill "
-                    style="border-color: lightgray !important; border-width: 2px !important; margin-bottom: 10px !important;">
-                    <div class="d-flex justify-content-start">
-                        <a href="javascript:void(0);" class="pmd-avatar-list-img">
-                            <img class="avatar avatar-64 bg-light rounded-circle text-white img-fluid" alt="40x40"
-                                 data-src="holder.js/40x40" src="https://i.pravatar.cc/400?img=56"
-                                 data-holder-rendered="true" />
-                        </a>
-                        <div class="p-3 " style="font-size: 20px;">Mateusz Kwiatkowski</div>
-                    </div>
-
-                    <!-- Example single danger button -->
-                    <div class="btn-group ">
-                        <button type="button" class="btn btn-danger dropdown-toggle rounded-pill"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            style="background-color: lightcoral !important; color: black !important; border-color: lightcoral !important;">
-                            To Do
-                        </button>
-                        <div class="dropdown-menu">
-                            <a class="dropdown-item" href="#">Done</a>
-
-                        </div>
-                    </div>
-                    <span class="material-symbols-outlined">
-                        arrow_forward_ios
-                    </span>
-                </li>
-
-
-
                 </ul>
             </div>
 

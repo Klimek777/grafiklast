@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 
 public class User {
     private String userId;
+
     private String companyName;
     @NotNull
     @NotEmpty
@@ -27,6 +28,11 @@ public class User {
 
     }
 
+    public User() {
+        // Empty constructor
+    }
+
+
     public String getUserId() {
         return userId;
     }
@@ -43,6 +49,7 @@ public class User {
     public void setCompanyName(String companyName) {
         this.companyName = companyName;
     }
+
 
     public String getEmail() {
         return email;
