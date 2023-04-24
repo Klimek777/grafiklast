@@ -61,18 +61,40 @@ public class LoginController {
         // ApiFuture<QuerySnapshot> signingInUser =
         // dbFirestore.collection("companies").whereEqualTo("email", email).get();
 
-        ApiFuture<QuerySnapshot> future = dbFirestore.collection("companies")
+        //Pobranie ID uzytkownika z kolekcji "companies" czyli mengaerów
+        ApiFuture<QuerySnapshot> futureCompanies = dbFirestore.collection("companies")
+                .whereEqualTo("email", email)
+                .get();
+        // Pobranie ID użytkownika z kolekcji "users"
+        ApiFuture<QuerySnapshot> futureUsers = dbFirestore.collection("users")
                 .whereEqualTo("email", email)
                 .get();
 
         try {
-            QuerySnapshot querySnapshot = future.get();
-            for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+            QuerySnapshot querySnapshotCompanies = futureCompanies.get();
+            QuerySnapshot querySnapshotUsers = futureUsers.get();
+
+            //sprawdzenie dla kolekcji companies
+            for (DocumentSnapshot document : querySnapshotCompanies.getDocuments()) {
                 String passwordHash = document.getString("password");
                 String formPasswordHash = CompanyService.getMd5Hash(password);
 
                 if(passwordHash.equals(formPasswordHash))  {
                     session.setAttribute("companyName", document.getString("companyName"));
+                    //jesli dziala na kolekcji comapnies i matchuje hasla dodaje atrybut menager
+                    session.setAttribute("userType", "manager");
+                    return "success";
+                }
+            }
+            //sprawdzenie dla kolekcji users
+            for (DocumentSnapshot document : querySnapshotUsers.getDocuments()) {
+                String passwordHash = document.getString("password");
+                String formPasswordHash = CompanyService.getMd5Hash(password);
+
+                if (passwordHash.equals(formPasswordHash)) {
+                    session.setAttribute("userName", document.getString("name"));
+                    //jesli dziala po kolekcji user i matchuje hasla dodaje atrybut user
+                    session.setAttribute("userType", "user");
                     return "success";
                 }
             }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,7 +21,7 @@
         </nav>
         <div id="header" class="d-flex align-items-center justify-content-between p-4 w-75 mx-auto">
             <h1>
-                Welcome, Dawid
+                Welcome, <span th:text="${userEmail}"></span>
             </h1>
 
         </div>

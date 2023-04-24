@@ -11,6 +11,7 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.grafiklast.User;
@@ -21,7 +22,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
-@RestController
+@Controller
 public class UserController {
     @Autowired
     UserService userService;
@@ -35,8 +36,10 @@ public class UserController {
     @PostMapping(value = "/add_people", consumes = "multipart/form-data")
     public String createUser(@ModelAttribute User user, HttpSession session) throws InterruptedException, ExecutionException {
         if(registerUser(user, session).equals("success")){
-            return "add_people";
+            //return this modal with value for example success
+            return "redirect:/home";
         }
+        //still return this modal but with value for example failure
         return "add_people";
     }
 
@@ -90,6 +93,8 @@ public class UserController {
         String companyName = (String) session.getAttribute("companyName");
         System.out.println(companyName);
         user.setCompanyName(companyName);
+
+
 
         // Dodanie użytkownika do Firebase Authentication
         UserRecord.CreateRequest request = new UserRecord.CreateRequest()
