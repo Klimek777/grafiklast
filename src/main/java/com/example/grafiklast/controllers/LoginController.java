@@ -28,6 +28,7 @@ public class LoginController {
         model.addAttribute("name", name);
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
         if(loggedIn != null && loggedIn) {
+            System.out.println("test");
             return "redirect:/home";
         }
         else {
