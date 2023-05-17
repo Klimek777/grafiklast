@@ -2,6 +2,10 @@ package com.example.grafiklast.controllers;
 
 import com.example.grafiklast.User;
 import com.google.cloud.firestore.*;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.Storage;
+import com.google.cloud.storage.StorageOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -34,6 +39,8 @@ public class HomeController {
 
     @GetMapping("/home")
     public String homePage(HttpSession session, Model model) throws ExecutionException, InterruptedException {
+
+
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
         String userType = (String) session.getAttribute("userType");
         String userName= (String) session.getAttribute("userName");
