@@ -94,6 +94,7 @@ public class LoginController {
 
                 if (passwordHash.equals(formPasswordHash)) {
                     session.setAttribute("userName", document.getString("name"));
+                    session.setAttribute("userId", document.getString("userId"));
                     //jesli dziala po kolekcji user i matchuje hasla dodaje atrybut user
                     session.setAttribute("userType", "user");
                     return "success";

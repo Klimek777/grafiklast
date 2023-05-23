@@ -22,7 +22,7 @@
         </nav>
         <div id="header" class="d-flex align-items-center justify-content-between p-4 w-75 mx-auto">
             <h1>
-                Welcome, <span th:text="${userEmail}"></span>
+                Welcome, <span th:text="${userName}"></span>
             </h1>
 
         </div>
@@ -34,7 +34,9 @@
                     </span>
                 </div>
                 <div class="">
+                    <a th:href="@{'/calendar/disposition/'+${session.userId} }">
                     <button type="button" class="btn btn-secondary">Select dispositon</button>
+                </a>
 
                 </div>
 
@@ -45,8 +47,8 @@
                     </span>
                 </div>
                 <div class="">
-                    <button type="button" class="btn btn-secondary">Work schedule
-                    </button>
+                    <a th:href="@{'/calendar/worker/'+${session.userId} }"><button type="button" class="btn btn-secondary">Work schedule
+                    </button></a>
 
                 </div>
 

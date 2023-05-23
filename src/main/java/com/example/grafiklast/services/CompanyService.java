@@ -70,8 +70,7 @@ public class CompanyService {
         company.setCompanyId(documentId);
 
         // Dodanie użytkownika do Firebase Authentication
-        if(1==1)
-        {    
+        
             UserRecord.CreateRequest request = new UserRecord.CreateRequest()
                     .setEmail(company.getEmail())
                     .setPassword(password)
@@ -90,7 +89,7 @@ public class CompanyService {
             // Zapisanie obiektu company do Firestore
             company.setPassword(getMd5Hash(password));
             documentReference.set(company);
-        }
+        
         return "success";
         // else if(company.getPassword() != company.getConfirmPassword()) {
         //     return "Hasło musić mieć co najmniej 6 znaków";

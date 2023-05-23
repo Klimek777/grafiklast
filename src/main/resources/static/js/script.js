@@ -392,7 +392,9 @@ function updateEvents(date){
     
     eventsContainer.innerHTML = events;
     //save events when update event called
-    saveEvents();
+    if (document.readyState === "complete" || document.readyState === "loaded") {
+        saveEvents();
+   }
 }
 
 //function to create events 
@@ -530,15 +532,43 @@ eventsContainer.addEventListener("click", (e) => {
 //store events in local storage
 
 function saveEvents(){
-    console.log("yes");
-    localStorage.setItem("events", JSON.stringify(eventsArr));
+    //localStorage.setItem("events", JSON.stringify(eventsArr));
+
+    var currentURL = window.location.href;
+
+    //var dataFromLocalStorage = localStorage.getItem('events');
+    
+    $.ajax({
+    url: currentURL+'/save',
+    type: 'POST',
+    data: { data: JSON.stringify(eventsArr) },
+    });
+
 }
 
 function getEvents(){
-    if(localStorage.getItem("events" != null)){
-        eventsArr.push(...JSON.parse(localStorage.getItem("events")));
-    }
-    else {
-        return;
-    }
+    
+    var currentURL = window.location.href;
+
+    $.ajax({
+        url: currentURL + '/read',
+        type: 'POST',
+        data: "User events data requesting...",
+        success: function(response) {
+          console.log(response); // Log the response to the console
+          eventsArr = JSON.parse(response);
+          console.log(eventsArr);
+          initCalendar();
+        },
+        error: function(error) {
+          console.log('Error:', error); // Log any errors to the console
+        }
+      });
+
+    // if(localStorage.getItem("events" != null)){
+    //     eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    // }
+    // else {
+    //     return;
+    // }
 }

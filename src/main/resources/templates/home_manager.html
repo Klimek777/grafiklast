@@ -37,9 +37,9 @@
             </nav>
             <div id="header" class="d-flex align-items-center justify-content-between p-4 w-75 mx-auto">
                 <h1>
-                    Welcome, <span th:text="${userEmail}"></span>
+                    Welcome, <span th:text="${userName}"></span>
                 </h1>
-                <a href="add_people">                <button type="button" class="btn btn-secondary">Add People +</button>
+                <a href="add_people"><button type="button" class="btn btn-secondary">Add People +</button>
                 </a>
 
             </div>
@@ -70,7 +70,7 @@
 
                             </div>
                         </div>
-                        <a class="d-flex align-items-center text-dark text-decoration-none" href="/calendar"><span class="material-symbols-outlined">
+                        <a class="d-flex align-items-center text-dark text-decoration-none" th:href="@{'/calendar/manager/'+${user.userId} }"><span class="material-symbols-outlined">
                             arrow_forward_ios
                             </span>
                         </a>
