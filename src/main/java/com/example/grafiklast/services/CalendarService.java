@@ -67,7 +67,7 @@ public class CalendarService {
                 String eventsJSON = (String) eventData.get("eventsJSON");
                 return eventsJSON;
             } else {
-                throw new RuntimeException("No events found for the given user.");
+                return "[]";
             }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();

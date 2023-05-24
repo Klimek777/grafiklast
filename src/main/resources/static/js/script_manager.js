@@ -268,7 +268,7 @@ function gotoDate(){
     alert("Invalid Date");
 }
 
-    addEventTitle.value=document.querySelector("#username_span").innerHTML;
+addEventTitle.value=document.querySelector("#username_span").innerHTML;
 
 addEventBtn.addEventListener('click', () => {
     addEventContainer.classList.toggle("active");
@@ -521,7 +521,8 @@ addEventSubmit.addEventListener("click", () => {
         if (!activeDayElem.classList.contains("event")){
             activeDayElem.classList.add("event");
         }
-
+        addEventTitle.value=document.querySelector("#username_span").innerHTML;
+        initCalendar();
     });
 
 
