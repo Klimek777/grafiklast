@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Calendar</title>
+</head>
+<body>
+    <div id="wrapper">
+        <nav class="navbar navbar-light" style="background-color: white !important;">
+            <a class="navbar-brand " href="/home" >
+                <img src="/assets/S.png" width="40" height="40"
+                     class="d-inline-block rounded-circle" >
+                ShiftMate
+            </a>
+            <span th:text="${session.companyName}+' - '+${userName}+' - Manager view'"></span>
+            <a href="/logout" ><input formaction="/logout" type="button" class="btn btn-secondary" value="Logout" /> </a>
+        </nav>
+        <div class="container">
+            <div class="left">
+                <div class="calendar">
+                    <div class="month">
+                        <i class="fa fa-angle-left prev"></i>
+                            <div class="date"></div>
+                        <i class="fa fa-angle-right next"></i>
+                    </div>
+                    <div class="weekdays">
+                        <div>sun</div>
+                        <div>mon</div>
+                        <div>tue</div>
+                        <div>wed</div>
+                        <div>thu</div>
+                        <div>fri</div>
+                        <div>sat</div>
+                    </div>
+                    <div class="days"></div>
+                    <div class="goto-today">
+                        <div class="goto">
+                            <input type="text" placeholder="mm/yyyy" class="date-input">
+                            <button class="goto-btn">go</button>
+                        </div>
+                        <button class="today-btn">today</button>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <!-- <div class="d-flex flex-row-reverse pr-4">
+                    <a th:href="@{'/calendar/manager/'+${userId}+'/save'}"><button type="button" class="btn btn-secondary">Zapisz</button></a>
+                </div> -->
+                <div class="today-date">
+                    <div class="event-day">Wed</div>
+                    <div class="event-date">16 November 2022</div>
+                </div>
+                <div class="events">
+                    
+                </div>
+                <div class="add-event-wrapper ">
+                    <div class="add-event-header">
+                        <div class="title">Add Event</div>
+                        <i class="fas fa-times close"> </i>
+                    </div>
+                    <div class="add-event-body">
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Name" class="event-name"/>
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Time From" class="event-time-from"/>
+                        </div>
+                        <div class="add-event-input">
+                            <input type="text" placeholder="Event Time To" class="event-time-to"/>
+                        </div>
+                    </div>
+                    <div class="add-event-footer">
+                        <button class="add-event-btn">add event</button>
+                    </div>
+                </div>
+            </div>
+            <button class="add-event">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+    <script src="/js/script.js"></script>
+</body>
+</html>

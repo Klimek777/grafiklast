@@ -47,16 +47,17 @@ public class HomeController {
         String companyName = (String) session.getAttribute("companyName");
 
         if(loggedIn != null && loggedIn && userType.equals("manager")) {
-            model.addAttribute("userEmail", companyName);
+            model.addAttribute("userName", companyName);
             List<User> userList = findByCompanyName(companyName);
             model.addAttribute("userList", userList);
-            System.out.println(userList);
+            //System.out.println(userList);
             return "home_manager";
         } else if (loggedIn != null && loggedIn && userType.equals("user")) {
-            model.addAttribute("userEmail", userName);
+            model.addAttribute("userId", userName);
+            model.addAttribute("userName", userName);
             return "home_worker";
         } else {
-            System.out.println(userType);
+            //System.out.println(userType);
             return "redirect:/login";
         }
     }
