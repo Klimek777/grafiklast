@@ -1,7 +1,10 @@
 package com.example.grafiklast;
 
+import javax.annotation.MatchesPattern;
+
 import com.google.firebase.database.annotations.NotNull;
 
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
@@ -25,7 +28,13 @@ public class Company {
 
     @NotNull
     @NotEmpty(message = "This field cannot be empty!")
-
+    // @AssertTrue(message = "Passwords do not match!")
+    // public boolean isPasswordMatch() {
+    //     if (password == null || confirmPassword == null) {
+    //         return false;
+    //     }
+    //     return password.equals(confirmPassword);
+    // }
     private String confirmPassword;
 
     public Company(String companyName, String password, String confirmPassword, String email) {
