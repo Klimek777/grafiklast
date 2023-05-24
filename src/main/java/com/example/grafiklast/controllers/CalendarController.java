@@ -92,10 +92,17 @@ public class CalendarController {
     public String calendarManagerEventsReadFromDatabase(@RequestBody String localStorageData, @PathVariable("userId") String userId) throws Exception {
         CalendarService calendarService = new CalendarService();
 
-            // dotarcie do kaedgo z eventów
         String userEventsData = calendarService.getEvents(userId);
 
         return userEventsData;
+    }
+
+    @PostMapping("/calendar/manager/{userId}/all/read")
+    @ResponseBody
+    public String calendarManagerEventsReadAllWorkersFromDatabase(HttpSession session, @RequestBody String localStorageData, @PathVariable("userId") String userId) throws Exception {
+        CalendarService calendarService = new CalendarService();
+
+        return calendarService.getEventsAllWorkers(session).toString();
     }
     
 

@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutionException;
 import com.example.grafiklast.CalendarEvent;
 import com.example.grafiklast.Company;
 import com.example.grafiklast.Event;
+import com.example.grafiklast.User;
+import com.example.grafiklast.controllers.HomeController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.core.ApiFuture;
@@ -24,6 +26,8 @@ import com.google.firebase.auth.UserRecord;
 import com.google.firebase.cloud.FirestoreClient;
 import com.google.gson.Gson;
 
+import jakarta.servlet.http.HttpSession;
+
 public class CalendarService {
     // public String saveEvent(String userId, String date, Event calendarEvent) throws Exception {
     //     calendarEvent.setDate(date);
@@ -35,6 +39,8 @@ public class CalendarService {
     //     documentReference.set(calendarEvent);
     //     return "success";
     // }
+
+    private static final HttpSession HttpSession = null;
 
     public String saveEvent(String userId, String eventsJSON) throws Exception {
         Firestore dbFirestore = FirestoreClient.getFirestore();
@@ -68,6 +74,24 @@ public class CalendarService {
             // Handle error retrieving document
             throw new RuntimeException("Failed to retrieve events from Firestore.");
         }
-    }    
+    }
 
+    public List<String> getEventsAllWorkers(HttpSession session) throws Exception {
+
+        String companyName = (String) session.getAttribute("companyName");
+
+        HomeController homeController = new HomeController();
+
+        List<String> allUsersEventsList = new ArrayList<>();
+
+        List<User> userList = homeController.findByCompanyName(companyName);
+
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        
+        for (User user : userList) {
+            allUsersEventsList.add(getEvents(user.getUserId()));
+        }
+        System.out.println(allUsersEventsList);
+        return allUsersEventsList;
+    }
 }
