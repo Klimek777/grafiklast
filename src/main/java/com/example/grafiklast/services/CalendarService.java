@@ -42,7 +42,7 @@ public class CalendarService {
 
     private static final HttpSession HttpSession = null;
 
-    public String saveEvent(String userId, String eventsJSON) throws Exception {
+    public String saveEvents(String userId, String eventsJSON) throws Exception {
         Firestore dbFirestore = FirestoreClient.getFirestore();
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     
@@ -93,5 +93,39 @@ public class CalendarService {
         }
         System.out.println(allUsersEventsList);
         return allUsersEventsList;
+    }
+
+    public String saveDisposition(String userId, String dispositionJSON) throws Exception {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    
+        DocumentReference documentReference = dbFirestore.collection("dispositions").document(userId);
+        Map<String, Object> eventMap = new HashMap<>();
+        eventMap.put("dispositionJSON", dispositionJSON);
+        documentReference.set(eventMap).get();
+    
+        return "success";
+    }
+
+    public String getDisposition(String userId) throws Exception {
+        Firestore dbFirestore = FirestoreClient.getFirestore();
+    
+        DocumentReference documentReference = dbFirestore.collection("dispositions").document(userId);
+        ApiFuture<DocumentSnapshot> documentSnapshot = documentReference.get();
+    
+        try {
+            DocumentSnapshot snapshot = documentSnapshot.get();
+            if (snapshot.exists()) {
+                Map<String, Object> eventData = snapshot.getData();
+                String eventsJSON = (String) eventData.get("dispositionJSON");
+                return eventsJSON;
+            } else {
+                return "[]";
+            }
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            // Handle error retrieving document
+            throw new RuntimeException("Failed to retrieve events from Firestore.");
+        }
     }
 }

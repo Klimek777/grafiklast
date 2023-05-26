@@ -72,6 +72,8 @@ const months = [
 
 //set an empty array
 let eventsArr = [];
+let dispositionArr = [];
+
 allWorkersMode=true;
 $('#all_workers_mode_toggle').bootstrapToggle({ on: '', off: ''});
 $('#all_workers_mode_toggle').bootstrapToggle('off');
@@ -81,6 +83,8 @@ if(allWorkersMode) {
 }
 else {
     getEvents();
+    dispositionArr = [];
+    getDisposition();
 }
 
 function toggleAllWorkersMode() {
@@ -88,7 +92,15 @@ function toggleAllWorkersMode() {
     allWorkersMode=!allWorkersMode;
     if(allWorkersMode) {
         addEventBtn.style.visibility = 'hidden';
+        $('#all_workers_mode_toggle').bootstrapToggle('disable');
+        setTimeout(function() {
+            $('#all_workers_mode_toggle').bootstrapToggle('enable');
+        }, 1000); 
     } else {
+        $('#all_workers_mode_toggle').bootstrapToggle('disable');
+        setTimeout(function() {
+            $('#all_workers_mode_toggle').bootstrapToggle('enable');
+        }, 1000); 
         addEventBtn.style.visibility = 'visible';
     }
     if(allWorkersMode) {
@@ -109,8 +121,8 @@ function initCalendar(){
     const prevLastDay = new Date(year, month, 0);
     const prevDays = prevLastDay.getDate();
     const lastDate = lastDay.getDate();
-    const day = firstDay.getDay();
-    const nextDays = 7 - lastDay.getDay() - 1;
+    const day = (firstDay.getDay()-1)%7;
+    const nextDays = 7 - lastDay.getDay();
 
         //update date -> top of calendar
     date.innerHTML = months[month] + " " + year;
@@ -149,31 +161,37 @@ function initCalendar(){
             year == new Date().getFullYear() &&
             month == new Date().getMonth()
             ){
+                if(dispositionArr.indexOf(year+"-"+month+"-"+i)!=-1) {
+                    addEventBtn.style.visibility = 'hidden';
+                } else {
+                    addEventBtn.style.visibility = 'visible';
+                }
                 activeDay = i;
                 getActiveDay(i);
                 updateEvents(i);
                 //if event found also add event class
                 //add active on today at startup
+                
                 if (event) {
-                    days += `<div class ="day today active flex-column" data-day="${i}">${i}`;
+                    days += `<div class="day today active${dispositionArr.indexOf(year+"-"+month+"-"+i)!=-1 ? '-disposition' : '' } flex-column" data-day="${i}">${i}`;
                     eventsInfo.forEach(element => {
                         days += `<span style="font-size: 8px;">${element.time}</span>`;
                     });
                     days+='</div>';
                 }else {
-                    days += `<div class ="day today active" data-day="${i}">${i}</div>`;
+                    days += `<div class ="day today active${dispositionArr.indexOf(year+"-"+month+"-"+i)!=-1 ? '-disposition' : '' }" data-day="${i}">${i}</div>`;
                 }
             }
         //add remaining as it is  
         else{
             if (event) {
-                days += `<div class ="day flex-column" data-day="${i}">${i}`;
+                days += `<div class ="day flex-column ${dispositionArr.indexOf(year+"-"+month+"-"+i)!=-1 ? 'active-disposition' : '' }" data-day="${i}">${i}`;
                 eventsInfo.forEach(element => {
                     days += `<span style="font-size: 8px;">${element.time}</span>`;
                 });
                 days += `</div>`;
             }else {
-                days += `<div class ="day" data-day="${i}">${i}</div>`;
+                days += `<div class ="day ${dispositionArr.indexOf(year+"-"+month+"-"+i)!=-1 ? 'active-disposition' : '' }" data-day="${i}">${i}</div>`;
             }          
         }            
     }
@@ -185,6 +203,7 @@ function initCalendar(){
         }
         
         daysContainer.innerHTML = days;
+        
         //add listner after calender initialized
         addListner();
 }
@@ -259,7 +278,7 @@ function gotoDate(){
     if (dateArr.length == 2) {
         if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length == 4) {
             month = dateArr[0] - 1;
-            year = dateArr[1]- 1 ;
+            year = dateArr[1];
             initCalendar();
             return;
         }
@@ -291,31 +310,65 @@ addEventTitle.addEventListener("input", (e) => {
 
 //time format in 'from' and 'to' time 
 
-addEventFrom.addEventListener("input", (e) => {
-    //remove anything else numbers
-    addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g , "");
-    //add auto ":" if two numbers are entered 
-    if (addEventFrom.value.length == 2){
-        addEventFrom.value += ":";
+addEventFrom.addEventListener('input', function(event) {
+
+    if(event.target.value.indexOf(':')!=2) {
+        event.target.value.replace(":", "");
     }
-    // dont let user enter more than 5 chars
-    if(addEventFrom.value.length > 5){
-       addEventFrom.value = addEventFrom.value.slice(0, 5); 
+    var inputValue = event.target.value;
+    if(inputValue.length==0) {
+        inputValue="00:00";
     }
-});
+    if(inputValue.length==1) {
+        inputValue+="0:00";
+    }
+    if(inputValue.length==2) {
+        inputValue+=":00";
+    }
+    else if(inputValue.length==3) {
+        inputValue+="00";
+    }
+    else if(inputValue.length==4) {
+        inputValue+="0";
+    }
+    var regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
+    
+    if (!regex.test(inputValue)) {
+        event.target.value.replace(":", "");
+      event.target.value = copyOfinputValue;
+    }
+    copyOfinputValue = event.target.value;
+  });
 //exactly the same for "to" time format
-addEventTo.addEventListener("input", (e) => {
-    //remove anything else numbers
-    addEventTo.value = addEventTo.value.replace(/[^0-9:]/g , "");
-    //add auto ":" if two numbers are entered 
-    if (addEventTo.value.length == 2){
-        addEventTo.value += ":";
+addEventTo.addEventListener('input', function(event) {
+
+    if(event.target.value.indexOf(':')!=2) {
+        event.target.value.replace(":", "");
     }
-    // dont let user enter more than 5 chars
-    if(addEventTo.value.length > 5){
-       addEventTo.value = addEventTo.value.slice(0, 5); 
+    var inputValue = event.target.value;
+    if(inputValue.length==0) {
+        inputValue="00:00";
     }
-});
+    if(inputValue.length==1) {
+        inputValue+="0:00";
+    }
+    if(inputValue.length==2) {
+        inputValue+=":00";
+    }
+    else if(inputValue.length==3) {
+        inputValue+="00";
+    }
+    else if(inputValue.length==4) {
+        inputValue+="0";
+    }
+    var regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
+    
+    if (!regex.test(inputValue)) {
+        event.target.value.replace(":", "");
+      event.target.value = copyOfinputValue;
+    }
+    copyOfinputValue = event.target.value;
+  });
 
 //function to add listner on days after rendered
 
@@ -325,6 +378,12 @@ function addListner() {
         day.addEventListener("click", (e) => {
             //set current day as active day
             activeDay = Number(e.target.dataset.day);
+
+            if(e.target.classList.contains('active-disposition')) {
+                addEventBtn.style.visibility = 'hidden';
+            } else {
+                addEventBtn.style.visibility = 'visible';
+            }
 
             //call active day after click
             getActiveDay(e.target.dataset.day);
@@ -355,6 +414,8 @@ function addListner() {
                         }
                     });
                 }, 100);
+
+                getActiveDay(e.target.innerHTML);
                 // same with "next month days"
             } else if (e.target.classList.contains("next-date")){
                 nextMonth();
@@ -373,6 +434,8 @@ function addListner() {
                         }
                     });
                 }, 100);
+                
+                getActiveDay(e.target.innerHTML);
             }
             else {
                 //if remaing current month days
@@ -661,4 +724,24 @@ function getAllWorkersEvents(){
     // else {
     //     return;
     // }
+}
+
+function getDisposition(){
+    
+    var currentURL = window.location.href;
+
+    $.ajax({
+        url: currentURL + '/disposition/read',
+        type: 'POST',
+        data: "User events data requesting...",
+        success: function(response) {
+          dispositionArr = JSON.parse(response);
+          console.log(dispositionArr);
+          initCalendar();
+        },
+        error: function(error) {
+          console.log('Error:', error); // Log any errors to the console
+        }
+      });
+
 }
