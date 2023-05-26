@@ -1,5 +1,7 @@
 :root{
     --primary-clr: #84898E;
+    --disposition-clr: #ee6666;
+    --disposition-hover-clr: #ffaaaa;
 }
 *{
     margin: 0;
@@ -8,10 +10,6 @@
     font-family: "Poppins", sans-serif;
 }
 body{
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     background-color: #e2e1dc;
 }
 .container{
@@ -119,6 +117,12 @@ body{
     color: #fff;
     background-color: var(--primary-clr);
 }
+
+.calendar .disposition .day:not(.prev-date , .next-date):hover{
+    color: #fff;
+    background-color: var(--disposition-hover-clr);
+}
+
 .calendar .days .prev-date,
 .calendar .days .next-date{
     color: #D5D3D3;
@@ -128,6 +132,11 @@ body{
     font-size: 2rem;
     color: #fff;
     background-color: var(--primary-clr);
+}
+.calendar .days .active-disposition{
+    position: relative;
+    color: #fff;
+    background-color: var(--disposition-clr);
 }
 .calendar .days .active::before{
     content: '';

@@ -11,6 +11,13 @@ const calendar = document.querySelector(".calendar"),
         eventsContainer = document.querySelector(".events"),
         addEventSubmit = document.querySelector(".add-event-btn");
 
+        const addEventBtn = document.querySelector('.add-event'),
+        addEventContainer = document.querySelector('.add-event-wrapper'),
+        addEventCloseBtn = document.querySelector('.close'),
+        addEventTitle = document.querySelector('.event-name'),
+        addEventFrom = document.querySelector('.event-time-from'),
+        addEventTo = document.querySelector('.event-time-to');
+
 
 let today = new Date();
 let activeDay;
@@ -65,8 +72,28 @@ const months = [
 
 //set an empty array
 let eventsArr = [];
+allWorkersMode=true;
+$('#all_workers_mode_toggle').bootstrapToggle({ on: '', off: ''});
+$('#all_workers_mode_toggle').bootstrapToggle('off');
 //then call get
-getEvents();
+if(allWorkersMode) {
+    getAllWorkersEvents();
+}
+else {
+    getEvents();
+}
+
+function toggleAllWorkersMode() {
+    eventsArr=[];
+    allWorkersMode=!allWorkersMode;
+    if(allWorkersMode) {
+        getAllWorkersEvents();
+    }
+    else {
+        getEvents();
+    }
+    initCalendar();
+}
 
 //add days function 
 
@@ -77,8 +104,8 @@ function initCalendar(){
     const prevLastDay = new Date(year, month, 0);
     const prevDays = prevLastDay.getDate();
     const lastDate = lastDay.getDate();
-    const day = firstDay.getDay();
-    const nextDays = 7 - lastDay.getDay() - 1;
+    const day = (firstDay.getDay()-1)%7;
+    const nextDays = 7 - lastDay.getDay();
 
         //update date -> top of calendar
     date.innerHTML = months[month] + " " + year;
@@ -93,9 +120,8 @@ function initCalendar(){
     }
 
     //current month days
-    
     for(let i = 1; i <= lastDate; i++ ) {
-
+        eventsInfo=[];
         //check if event present on current day
         let event = false;
         eventsArr.forEach((eventObj) => {
@@ -105,6 +131,9 @@ function initCalendar(){
                 eventObj.year == year
             ){
                 //if event found
+                eventObj.events.forEach(element => {
+                    eventsInfo.push({"title" : element.title, "time": element.time});
+                });
                 event = true;
             }
         });
@@ -121,17 +150,25 @@ function initCalendar(){
                 //if event found also add event class
                 //add active on today at startup
                 if (event) {
-                    days += `<div class ="day today active event">${i}</div>`;
+                    days += `<div class ="day today active flex-column" data-day="${i}">${i}`;
+                    eventsInfo.forEach(element => {
+                        days += `<span style="${ element.title=='Paweł Jumper' ? 'color: green;' : ''} font-size: 8px;">${element.time}</span>`;
+                    });
+                    days+='</div>';
                 }else {
-                    days += `<div class ="day today active">${i}</div>`;
+                    days += `<div class ="day today active" data-day="${i}">${i}</div>`;
                 }
             }
         //add remaining as it is  
         else{
             if (event) {
-                days += `<div class ="day event">${i}</div>`;
+                days += `<div class="day flex-column" data-day="${i}">${i}`;
+                eventsInfo.forEach(element => {
+                    days += `<span style="${ element.title==document.querySelector("#username_span").innerHTML ? 'color: green;' : ''} font-size: 8px;">${element.time}</span>`;
+                });
+                days += `</div>`;
             }else {
-                days += `<div class ="day">${i}</div>`;
+                days += `<div class ="day" data-day="${i}">${i}</div>`;
             }          
         }            
     }
@@ -217,7 +254,7 @@ function gotoDate(){
     if (dateArr.length == 2) {
         if (dateArr[0] > 0 && dateArr[0] < 13 && dateArr[1].length == 4) {
             month = dateArr[0] - 1;
-            year = dateArr[1]- 1 ;
+            year = dateArr[1];
             initCalendar();
             return;
         }
@@ -226,12 +263,7 @@ function gotoDate(){
     alert("Invalid Date");
 }
 
-const addEventBtn = document.querySelector('.add-event'),
-    addEventContainer = document.querySelector('.add-event-wrapper'),
-    addEventCloseBtn = document.querySelector('.close'),
-    addEventTitle = document.querySelector('.event-name'),
-    addEventFrom = document.querySelector('.event-time-from'),
-    addEventTo = document.querySelector('.event-time-to');
+addEventTitle.value=document.querySelector("#username_span").innerHTML;
 
 addEventBtn.addEventListener('click', () => {
     addEventContainer.classList.toggle("active");
@@ -287,11 +319,11 @@ function addListner() {
     days.forEach((day)=> {
         day.addEventListener("click", (e) => {
             //set current day as active day
-            activeDay = Number(e.target.innerHTML);
+            activeDay = Number(e.target.dataset.day);
 
             //call active day after click
-            getActiveDay(e.target.innerHTML);
-            updateEvents(Number(e.target.innerHTML));
+            getActiveDay(e.target.dataset.day);
+            updateEvents(Number(e.target.dataset.day));
 
             //remove active from already active day 
 
@@ -318,6 +350,8 @@ function addListner() {
                         }
                     });
                 }, 100);
+
+                getActiveDay(e.target.innerHTML);
                 // same with "next month days"
             } else if (e.target.classList.contains("next-date")){
                 nextMonth();
@@ -336,10 +370,17 @@ function addListner() {
                         }
                     });
                 }, 100);
+
+                getActiveDay(e.target.innerHTML);
             }
             else {
-                //if remaing current month days 
-                e.target.classList.add("active");
+                //if remaing current month days
+                if(e.target.classList.contains('day'))
+                    e.target.classList.add("active");
+                else if(e.target.parentNode.classList.contains('day'))
+                {
+                    e.target.parentNode.click();
+                }
             }
         });
     });
@@ -392,9 +433,6 @@ function updateEvents(date){
     
     eventsContainer.innerHTML = events;
     //save events when update event called
-    if (document.readyState === "complete" || document.readyState === "loaded") {
-        saveEvents();
-   }
 }
 
 //function to create events 
@@ -479,7 +517,8 @@ addEventSubmit.addEventListener("click", () => {
         if (!activeDayElem.classList.contains("event")){
             activeDayElem.classList.add("event");
         }
-
+        addEventTitle.value=document.querySelector("#username_span").innerHTML;
+        initCalendar();
     });
 
 
@@ -550,13 +589,60 @@ function getEvents(){
     
     var currentURL = window.location.href;
 
+    // $.ajax({
+    //     url: currentURL + '/all/read',
+    //     type: 'POST',
+    //     data: "All users events data requesting...",
+    //     success: function(response) {
+    //       //console.log(response); // Log the response to the console
+    //       eventsArr = JSON.parse(response);
+    //       console.log(eventsArr);
+    //       initCalendar();
+    //     },
+    //     error: function(error) {
+    //       console.log('Error:', error); // Log any errors to the console
+    //     }
+    //   });
+
     $.ajax({
         url: currentURL + '/read',
         type: 'POST',
         data: "User events data requesting...",
         success: function(response) {
-          console.log(response); // Log the response to the console
+          //console.log(response); // Log the response to the console
           eventsArr = JSON.parse(response);
+          //console.log(eventsArr);
+          initCalendar();
+        },
+        error: function(error) {
+          console.log('Error:', error); // Log any errors to the console
+        }
+      });
+
+    // if(localStorage.getItem("events" != null)){
+    //     eventsArr.push(...JSON.parse(localStorage.getItem("events")));
+    // }
+    // else {
+    //     return;
+    // }
+}
+
+function getAllWorkersEvents(){
+    var currentURL = window.location.href;
+
+    $.ajax({
+        url: currentURL + '/all/read',
+        type: 'POST',
+        data: "All users events data requesting...",
+        success: function(response) {
+          //console.log(response); // Log the response to the console
+
+          for (let i = 0; i < JSON.parse(response).length; i++) {
+            eventsArr = eventsArr.concat(JSON.parse(response)[i]);
+            
+          }
+
+          //eventsArr = JSON.parse(response)[0].concat(JSON.parse(response)[1]);
           console.log(eventsArr);
           initCalendar();
         },
