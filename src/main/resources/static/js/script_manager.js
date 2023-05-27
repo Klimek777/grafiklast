@@ -163,7 +163,7 @@ function initCalendar(){
             ){
                 if(dispositionArr.indexOf(year+"-"+month+"-"+i)!=-1) {
                     addEventBtn.style.visibility = 'hidden';
-                } else {
+                } else if(!allWorkersMode){
                     addEventBtn.style.visibility = 'visible';
                 }
                 activeDay = i;
@@ -309,11 +309,17 @@ addEventTitle.addEventListener("input", (e) => {
 });
 
 //time format in 'from' and 'to' time 
+copyOfinputFromValue = "";
+copyOfinputToValue = "";
 
 addEventFrom.addEventListener('input', function(event) {
 
     if(event.target.value.indexOf(':')!=2) {
         event.target.value.replace(":", "");
+    }
+    if(event.target.value.length==2 && event.target.value.indexOf(':')==-1 && (copyOfinputFromValue.length!=3))
+    {
+        event.target.value+=":";
     }
     var inputValue = event.target.value;
     if(inputValue.length==0) {
@@ -334,10 +340,9 @@ addEventFrom.addEventListener('input', function(event) {
     var regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
     
     if (!regex.test(inputValue)) {
-        event.target.value.replace(":", "");
-      event.target.value = copyOfinputValue;
+      event.target.value = copyOfinputFromValue;
     }
-    copyOfinputValue = event.target.value;
+    copyOfinputFromValue = event.target.value;
   });
 //exactly the same for "to" time format
 addEventTo.addEventListener('input', function(event) {
@@ -345,6 +350,10 @@ addEventTo.addEventListener('input', function(event) {
     if(event.target.value.indexOf(':')!=2) {
         event.target.value.replace(":", "");
     }
+    if(event.target.value.length==2 && event.target.value.indexOf(':')==-1 && (copyOfinputToValue.length!=3))
+    {
+        event.target.value+=":";
+    }
     var inputValue = event.target.value;
     if(inputValue.length==0) {
         inputValue="00:00";
@@ -364,10 +373,9 @@ addEventTo.addEventListener('input', function(event) {
     var regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
     
     if (!regex.test(inputValue)) {
-        event.target.value.replace(":", "");
-      event.target.value = copyOfinputValue;
+      event.target.value = copyOfinputToValue;
     }
-    copyOfinputValue = event.target.value;
+    copyOfinputToValue = event.target.value;
   });
 
 //function to add listner on days after rendered
@@ -381,7 +389,7 @@ function addListner() {
 
             if(e.target.classList.contains('active-disposition')) {
                 addEventBtn.style.visibility = 'hidden';
-            } else {
+            } else if(!allWorkersMode) {
                 addEventBtn.style.visibility = 'visible';
             }
 

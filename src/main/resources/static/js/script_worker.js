@@ -286,30 +286,71 @@ addEventTitle.addEventListener("input", (e) => {
 
 //time format in 'from' and 'to' time 
 
+copyOfinputFromValue = "";
+copyOfinputToValue = "";
+
 addEventFrom.addEventListener("input", (e) => {
-    //remove anything else numbers
-    addEventFrom.value = addEventFrom.value.replace(/[^0-9:]/g , "");
-    //add auto ":" if two numbers are entered 
-    if (addEventFrom.value.length == 2){
-        addEventFrom.value += ":";
+    if(event.target.value.indexOf(':')!=2) {
+        event.target.value.replace(":", "");
     }
-    // dont let user enter more than 5 chars
-    if(addEventFrom.value.length > 5){
-       addEventFrom.value = addEventFrom.value.slice(0, 5); 
+    if(event.target.value.length==2 && event.target.value.indexOf(':')==-1 && (copyOfinputFromValue.length!=3))
+    {
+        event.target.value+=":";
     }
+    var inputValue = event.target.value;
+    if(inputValue.length==0) {
+        inputValue="00:00";
+    }
+    if(inputValue.length==1) {
+        inputValue+="0:00";
+    }
+    if(inputValue.length==2) {
+        inputValue+=":00";
+    }
+    else if(inputValue.length==3) {
+        inputValue+="00";
+    }
+    else if(inputValue.length==4) {
+        inputValue+="0";
+    }
+    var regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
+    
+    if (!regex.test(inputValue)) {
+      event.target.value = copyOfinputFromValue;
+    }
+    copyOfinputFromValue = event.target.value;
 });
 //exactly the same for "to" time format
 addEventTo.addEventListener("input", (e) => {
-    //remove anything else numbers
-    addEventTo.value = addEventTo.value.replace(/[^0-9:]/g , "");
-    //add auto ":" if two numbers are entered 
-    if (addEventTo.value.length == 2){
-        addEventTo.value += ":";
+    if(event.target.value.indexOf(':')!=2) {
+        event.target.value.replace(":", "");
     }
-    // dont let user enter more than 5 chars
-    if(addEventTo.value.length > 5){
-       addEventTo.value = addEventTo.value.slice(0, 5); 
+    if(event.target.value.length==2 && event.target.value.indexOf(':')==-1 && (copyOfinputToValue.length!=3))
+    {
+        event.target.value+=":";
     }
+    var inputValue = event.target.value;
+    if(inputValue.length==0) {
+        inputValue="00:00";
+    }
+    if(inputValue.length==1) {
+        inputValue+="0:00";
+    }
+    if(inputValue.length==2) {
+        inputValue+=":00";
+    }
+    else if(inputValue.length==3) {
+        inputValue+="00";
+    }
+    else if(inputValue.length==4) {
+        inputValue+="0";
+    }
+    var regex = /^(0[0-9]|1[0-9]|2[0-3]):([0-5][0-9])$/;
+    
+    if (!regex.test(inputValue)) {
+      event.target.value = copyOfinputToValue;
+    }
+    copyOfinputToValue = event.target.value;
 });
 
 //function to add listner on days after rendered
