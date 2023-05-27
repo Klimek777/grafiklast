@@ -29,7 +29,7 @@
             <!-- Image and text -->
             <nav class="navbar navbar-light" style="background-color: white !important;">
                 <a class="navbar-brand " href="#" >
-                    <img src="https://firebasestorage.googleapis.com/v0/b/shiftmate-f7d4f.appspot.com/o/images%2FS.png?alt=media&token=3b1fd65a-c7a4-4c96-9fbc-4616a35ce68e" width="40" height="40"
+                    <img src="/assets/S.png" width="40" height="40"
                          class="d-inline-block rounded-circle" >
                     ShiftMate
                 </a>
@@ -52,23 +52,15 @@
                         <div class="d-flex justify-content-start">
                             <a href="" class="pmd-avatar-list-img">
                                 <img class="avatar avatar-64 bg-light rounded-circle text-white img-fluid" alt="40x40"
-                                     data-src="holder.js/40x40"  src="/assets/S.png"
+                                     data-src="holder.js/40x40"  src="/assets/avatar.png"
                                      data-holder-rendered="true" />
                             </a>
                             <div class="p-3 " style="font-size: 20px;" th:text="${user.name}"></div>
                         </div>
 
                         <!-- Example single danger button -->
-                        <div class="btn-group user-button " style="position: absolute; right: 55px;">
-                            <button type="button" class="btn btn-success dropdown-toggle rounded-pill"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                style="background-color: rgb(125, 226, 125) !important; color: black !important; border-color: rgb(125, 226, 125) !important;">
-                                Done
-                            </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="#">To Do</a>
-
-                            </div>
+                        <div style="position: absolute; right: 55px;">
+                            <div class="p-3 " style="font-size: 20px;" th:text="${user.email}"></div>
                         </div>
                         <a class="d-flex align-items-center text-dark text-decoration-none" th:href="@{'/calendar/manager/'+${user.userId} }"><span class="material-symbols-outlined">
                             arrow_forward_ios

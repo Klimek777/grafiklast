@@ -1,12 +1,12 @@
 package com.example.grafiklast.controllers;
 
-import com.example.grafiklast.controllers.CompanyController;
 import com.example.grafiklast.services.CompanyService;
 
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.grafiklast.Company;
@@ -19,16 +19,15 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.cloud.FirestoreClient;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class LoginController {
     @GetMapping("/login")
-    public String loginPage(@RequestParam(name = "name", required = false, defaultValue = "World") String name,
-            Model model, HttpSession session) {
-        model.addAttribute("name", name);
+    public String loginPage(Company company, Model model, BindingResult result, HttpSession session) {
+        model.addAttribute("compane", company);
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
         if(loggedIn != null && loggedIn) {
-            System.out.println("test");
             return "redirect:/home";
         }
         else {
@@ -37,7 +36,15 @@ public class LoginController {
     }
 
     @PostMapping(value = "/signing_in", consumes = "multipart/form-data")
-    public String loginCompany(@ModelAttribute Company company, HttpSession session) throws InterruptedException, FirebaseAuthException {
+    public String loginCompany(Model model, @Valid Company company, BindingResult result, HttpSession session) throws InterruptedException, FirebaseAuthException {
+        if(result.hasErrors()) {
+            model.addAttribute("loginEmailErrors", result.getFieldErrors("email"));
+            model.addAttribute("loginPasswordErrors", result.getFieldErrors("password"));
+
+            if(!result.getFieldErrors("email").isEmpty() || !result.getFieldErrors("password").isEmpty()) {
+                return "login";
+            }
+        }
         if (signInUserOrCompany(company, session) == "success") {
             session.setAttribute("loggedIn", true);
             return "redirect:/home";
@@ -48,6 +55,8 @@ public class LoginController {
     }
 
     public String signInUserOrCompany(Company company, HttpSession session) throws FirebaseAuthException {
+
+        
 
         Firestore dbFirestore = FirestoreClient.getFirestore();
         // Pobranie danych logowania z żądania

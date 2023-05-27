@@ -14,7 +14,7 @@
           <div class="row d-flex justify-content-center align-items-center h-90">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
               <div class="card bg-dark text-white" style="border-radius: 1rem;">
-                <form method="POST" action="/signing_in" enctype="multipart/form-data" class="card-body p-5 text-center">
+                <form th:object="${company}" method="POST" action="/signing_in" enctype="multipart/form-data" class="card-body p-5 text-center">
       
                   <div class="">
                     <h2>ShiftMate</h2>
@@ -22,12 +22,23 @@
       
                     <div class="form-outline form-white mb-4">
                         <label class="form-label" for="typeEmailX">Email</label>
-
+                        <div th:if="${#fields.hasErrors('email')}">
+                          <div class="list-unstyled text-danger mb-1">
+                            <div style="font-size: 0.85rem; padding:0;" th:each="err, iterStat : ${loginEmailErrors}"
+                              th:text="${err.defaultMessage}" th:if="${iterStat.index == 0}"></div>
+                          </div>
+                        </div>
                       <input name="email" type="email" id="typeEmailX" class="form-control form-control-lg" />
                     </div>
       
                     <div class="form-outline form-white mb-0">
                         <label class="form-label" for="typePasswordX">Password</label>
+                        <div th:if="${#fields.hasErrors('password')}">
+                          <div class="list-unstyled text-danger mb-1">
+                            <div style="font-size: 0.85rem; padding:0;" th:each="err, iterStat : ${loginPasswordErrors}"
+                              th:text="${err.defaultMessage}" th:if="${iterStat.index == 0}"></div>
+                          </div>
+                        </div>
                       <input name="password" type="password" id="typePasswordX" class="form-control form-control-lg" />
                       
                     </div>
