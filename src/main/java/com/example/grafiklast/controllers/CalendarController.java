@@ -29,9 +29,10 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class CalendarController {
-    private Firestore firestore = FirestoreClient.getFirestore();;
+    
     @GetMapping("/calendar/manager/{userId}")
     public String calendarManagerPage(@PathVariable("userId") String userId, HttpSession session, Model model) throws FirebaseAuthException, InterruptedException, ExecutionException {
+        Firestore firestore = FirestoreClient.getFirestore();
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
 
         model.addAttribute("userId", userId);
@@ -63,6 +64,7 @@ public class CalendarController {
     @PostMapping("/calendar/manager/{userId}/save")
     @ResponseBody
     public String calendarManagerEventsSave(@RequestBody String localStorageData, @PathVariable("userId") String userId) {
+        Firestore firestore = FirestoreClient.getFirestore();
 
         String localStorageDataJSON = URLDecoder.decode(localStorageData.substring(5));
 
@@ -179,6 +181,7 @@ public class CalendarController {
 
     @GetMapping("/calendar/worker/{userId}")
     public String calendarWorkerPage(@PathVariable("userId") String userId, HttpSession session, Model model) throws FirebaseAuthException, InterruptedException, ExecutionException {
+        Firestore firestore = FirestoreClient.getFirestore();
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
 
         model.addAttribute("userId", userId);
@@ -209,6 +212,7 @@ public class CalendarController {
 
     @GetMapping("/calendar/disposition/{userId}")
     public String calendarWorkerDispositionPage(@PathVariable("userId") String userId, HttpSession session, Model model) throws FirebaseAuthException, InterruptedException, ExecutionException {
+        Firestore firestore = FirestoreClient.getFirestore();
         Boolean loggedIn = (Boolean) session.getAttribute("loggedIn");
 
         model.addAttribute("userId", userId);
