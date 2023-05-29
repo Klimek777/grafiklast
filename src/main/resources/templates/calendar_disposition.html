@@ -21,8 +21,9 @@
             <span th:text="${session.companyName}+' - '+${userName}+' - Disposition'"></span>
             <a href="/logout" ><input formaction="/logout" type="button" class="btn btn-secondary" value="Logout" /> </a>
         </nav>
+        <div class="w-full">
         <div class="container">
-            <div class="left">
+            <div class="left m-auto w-75">
                 <div class="calendar">
                     <div class="month">
                         <i class="fa fa-angle-left prev"></i>
@@ -48,10 +49,8 @@
                     </div>
                 </div>
             </div>
-            <button class="add-event">
-                <i class="fas fa-plus"></i>
-            </button>
         </div>
+    </div>
     </div>
     <script src="/js/script_disposition.js"></script>
 </body>
