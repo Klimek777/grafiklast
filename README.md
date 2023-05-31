@@ -27,3 +27,7 @@ Pracownik nie ma możliwości rejestracji, musi otrzymać dane do logowania od z
 Aplikacja ma na celu służyć w swojej prostocie. Podczas tworzenia położono głowny nacisk na minimalistyczny i przejrzysty interfejs. Ograniczono do minimum potrzeby aplikacji do tworzenia grafików, co gwarantuje szybkie i intuicyjne wdrożenie. 
 
 ## 5. Dokumentacja właściwa (uruchomienie, info o bibliotekach, opis modułów, klas, zmiennych…)
+### 5.1 Uruchomienie 
+### 5.2 Biblioteki
+### 5.3 Opis modułów, klas, zmiennych 
+
