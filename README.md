@@ -7,7 +7,7 @@ Przeznaczenie: Dokumentacja jest przeznaczona zarówno dla użytkowników i prog
 1. [Strona tytułowa](#strona-tytułowa)
 2. [Spis treści](#spis-treści)
 3. [Historia zmian](#historia-zmian)
-4. [Wprowadzenie (czym jest projekt)](#wprowadzenie-czym-jest-projekt)
+4. [Wprowadzenie (czym jest projekt)](#wprowadzenie)
 5. [Dokumentacja właściwa](#dokumentacja-właściwa)
    - 5.1 [Uruchomienie](#uruchomienie)
    - 5.2 [Biblioteki](#biblioteki)
@@ -25,7 +25,7 @@ Przeznaczenie: Dokumentacja jest przeznaczona zarówno dla użytkowników i prog
 |              |            |                    | - Umożliwiono managerom wyśweitlanie grafiku wszystkich pracowników na jednym kalendarzu|
 |              |            |                    | - Umożliwiono pracownikom wyswietlanie zarówno swoich jak i wszystkich zmian w organizacji      |
 
-## 4. Wprowadzenie (czym jest projekt)
+## 4. Wprowadzenie
 Projekt ShiftMate to aplikacja umożliwiająca dowolnym organizacjom tworzenie indywidualnego podejścia do ich potrzeb planowania czasu Z aplikacji mogą korzystać nie tylko firmy, lecz także wszelkie przedsięwzięcia, które potrzebują planowania grafików w swoim zespole. 
 
 Aby rozpocząć korzystanie z aplikacji należy zarejestrować organizacje. Konto organizacji jest kontem zarządzającym, które ma możliwość dodawania pracowników do organizacji co równoznaczne jest z zakładaniem dla nich kont w aplikacji. Co więcej tylko to konto posiada widok umożliwiający podgląd wszystkich członków zespołu oraz tylko ono ma możliwość tworzenia końcowych grafików. Te, tworzy się poprzez wybranie danego pracownika i wpisanie odpowiednich godzin w kafelkach kalendarza. Osoba zarządzająca nie może dodawać zmian w dni oznaczone jako niedyspozycyjne przez pracownika. Istnieje możliwość rozszerzenia widoku kalendarza na danym pracowniku o wszystkich pracowników, tak aby zarządzający mógł zobaczyć gdzie zostały już zaplanowane jakieś zmiany.
@@ -34,7 +34,7 @@ Pracownik nie ma możliwości rejestracji, musi otrzymać dane do logowania od z
 
 Aplikacja ma na celu służyć w swojej prostocie. Podczas tworzenia położono głowny nacisk na minimalistyczny i przejrzysty interfejs. Ograniczono do minimum potrzeby aplikacji do tworzenia grafików, co gwarantuje szybkie i intuicyjne wdrożenie. 
 
-## 5. Dokumentacja właściwa (uruchomienie, info o bibliotekach, opis modułów, klas, zmiennych…)
+## 5. Dokumentacja właściwa
 ### 5.1 Uruchomienie 
 ### 5.2 Biblioteki
 ### 5.3 Opis modułów, klas, zmiennych 
