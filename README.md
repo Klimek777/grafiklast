@@ -52,5 +52,34 @@ Proces uruchomienia aplikacji `ShiftMate` jest niezwykle prosty. Pamiętaj o kil
    6. Teraz powinnaś/powinieneś zobaczyć, że projekt się uruchamia. Jeśli wszystko przebiegnie pomyślnie, aplikacja zostanie uruchomiona na określonym porcie, a na ekranie       pojawi się ekran logowania.
 
 ### 5.2 Biblioteki
+
+1. `Firebase Admin SDK`:
+   - Służy do zarządzania aplikacjami Firebase.
+   - Zapewnia narzędzia do integracji aplikacji z usługami Firebase, takimi jak autoryzacja, baza danych, powiadomienia push itp.
+   
+2. `Thymeleaf`:
+   - Jest to silnik szablonów, który umożliwia tworzenie dynamicznych stron HTML.
+   - Ułatwia osadzanie danych z serwera w szablonach HTML, co pozwala na wyświetlanie dynamicznych treści w aplikacji webowej.
+   
+3. `Spring Boot Starter Web`:
+   - Jest to zestaw zależności potrzebnych do tworzenia aplikacji webowych w technologii Spring Boot.
+   - Umożliwia obsługę żądań HTTP, zarządzanie trasami (routingiem), kontrolery, przetwarzanie formularzy itp.
+   
+4. `Narzędzia deweloperskie Spring Boot`:
+   - Jest to zestaw narzędzi, które ułatwiają rozwój aplikacji Spring Boot.
+   - Automatycznie przeładowuje aplikację po wprowadzeniu zmian w kodzie, co przyspiesza proces iteracyjny podczas rozwoju aplikacji.
+   
+5. `Spring Boot Starter Test`:
+   - Zawiera narzędzia potrzebne do tworzenia testów jednostkowych i integracyjnych w aplikacji Spring Boot.
+   - Umożliwia sprawdzanie poprawności działania poszczególnych komponentów aplikacji i integracji między nimi.
+   
+6. `Walidacja danych w Spring Boot`:
+   - Biblioteka dostarczająca funkcje do walidacji danych wejściowych w aplikacji Spring Boot.
+   - Pozwala na sprawdzenie poprawności danych wprowadzanych przez użytkownika i zastosowanie zdefiniowanych reguł walidacji.
+   
+7. `Passay`:
+   - Biblioteka służąca do generowania i sprawdzania haseł zgodnych z określonymi regułami.
+   - Może być używana w aplikacjach, które wymagają silnych haseł i chcą zapewnić, że użytkownicy tworzą hasła spełniające określone kryteria.
+
 ### 5.3 Opis modułów, klas, zmiennych 
 
