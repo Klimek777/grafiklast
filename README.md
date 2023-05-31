@@ -9,9 +9,9 @@ Przeznaczenie: Dokumentacja jest przeznaczona zarówno dla użytkowników i prog
 3. [Historia zmian](#3-historia-zmian)
 4. [Wprowadzenie (czym jest projekt)](#4-wprowadzenie)
 5. [Dokumentacja właściwa](#5-dokumentacja-właściwa)
-   - 5.1 [Uruchomienie](#uruchomienie)
-   - 5.2 [Biblioteki](#biblioteki)
-   - 5.3 [Opis modułów, klas, zmiennych](#opis-modułów-klas-zmiennych)
+   - 5.1 [Uruchomienie](#51-uruchomienie)
+   - 5.2 [Biblioteki](#52-biblioteki)
+   - 5.3 [Opis modułów, klas, zmiennych](#53-opis-modułów-klas-zmiennych)
 ## 3. Historia zmian
 | Numer wersji | Data       | Autor              | Opis zmian                                 |
 |--------------|------------|--------------------|--------------------------------------------|
