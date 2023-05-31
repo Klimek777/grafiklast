@@ -4,6 +4,14 @@
 Tytuł: Dokumentacja ShiftMate - tworzenie grafików w organizacjach 
 Przeznaczenie: Dokumentacja jest przeznaczona zarówno dla użytkowników i programistów. 
 ## 2. Spis treści
+1. [Strona tytułowa](#strona-tytułowa)
+2. [Spis treści](#spis-treści)
+3. [Historia zmian](#historia-zmian)
+4. [Wprowadzenie (czym jest projekt)](#wprowadzenie-czym-jest-projekt)
+5. [Dokumentacja właściwa](#dokumentacja-właściwa)
+   - 5.1 [Uruchomienie](#uruchomienie)
+   - 5.2 [Biblioteki](#biblioteki)
+   - 5.3 [Opis modułów, klas, zmiennych](#opis-modułów-klas-zmiennych)
 ## 3. Historia zmian
 | Numer wersji | Data       | Autor              | Opis zmian                                 |
 |--------------|------------|--------------------|--------------------------------------------|
