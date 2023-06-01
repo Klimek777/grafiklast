@@ -147,3 +147,53 @@ lokalizacja: UserController
 1. Wywoływana jest metoda registerUser(user, session), która jest odpowiedzialna za rejestrację nowego użytkownika na podstawie przekazanych danych. Wynik rejestracji jest porównywany z wartością "success".
 2. Jeśli rezultat rejestracji jest równy "success", przekierowuje na stronę "home" za pomocą adresu URL "redirect:/home".
 3. Jeśli rezultat rejestracji nie jest równy "success", zwraca widok "add_people".
+
+__`CalendarController` - metody i funkocjnalności__ 
+
+__Zapisywanie do bazy danych__
+
+   1. Metoda: `calendarManagerEventsSave` -> Zapisuje dane wydarzeń w bazie danych dla menedżera.
+   
+      *Opis*: Metoda ta przyjmuje dane wydarzeń w formacie JSON i zapisuje je w bazie danych. Wykorzystuje obiekt ObjectMapper do konwersji JSONa na obiekty klasy                  CalendarEvent. Następnie wywołuje odpowiednią funkcję w klasie CalendarService, która wykonuje zapis do bazy danych.
+
+   2. Metoda: `calendarDispositionSave` -> Zapisuje dane dyspozycji w bazie danych.
+   
+      *Opis*: Metoda ta przyjmuje dane dyspozycji w formacie JSON i zapisuje je w bazie danych. Podobnie jak poprzednia metoda, korzysta z obiektu ObjectMapper do konwersji        JSONa na obiekty klasy CalendarEvent. Następnie wywołuje funkcję zapisującą do bazy danych w klasie CalendarService.
+
+__Pobieranie z bazy danych__
+
+   1. Metoda: `calendarManagerEventsReadFromDatabase` -> Pobiera wydarzenia menedżera z bazy danych.
+   
+      *Opis*: Metoda ta pobiera wydarzenia menedżera z bazy danych na podstawie identyfikatora użytkownika (userId). Wykorzystuje obiekt Firestore do nawiązania połączenia        z bazą danych i wykonuje odpowiednie zapytanie do kolekcji "users". Następnie otrzymane dane są przetwarzane i zwracane.
+
+   2. Metoda: `calendarManagerEventsReadAllWorkersFromDatabase` -> Pobiera wydarzenia wszystkich pracowników z bazy danych.
+   
+      *Opis*: Metoda ta pobiera wydarzenia wszystkich pracowników z bazy danych. Korzysta z obiektu CalendarService, który wykonuje odpowiednie zapytanie do bazy danych i          zwraca wyniki w formacie JSON.
+
+   3. Metoda: `calendarWorkerEventsReadFromDatabase` -> Pobiera wydarzenia pracownika z bazy danych.
+   
+      *Opis*: Metoda ta pobiera wydarzenia konkretnego pracownika z bazy danych na podstawie identyfikatora użytkownika (userId). Wykorzystuje obiekt Firestore do                  nawiązania połączenia z bazą danych i wykonuje odpowiednie zapytanie do kolekcji "users". Następnie otrzymane dane są przetwarzane i zwracane.
+
+   4. Metoda: `calendarWorkerEventsReadAllWorkersFromDatabase` -> Pobiera wydarzenia wszystkich pracowników z bazy danych.
+   
+      *Opis*: Metoda ta pobiera wydarzenia wszystkich pracowników z bazy danych. Korzysta z obiektu CalendarService, który wykonuje odpowiednie zapytanie do bazy danych i          zwraca wyniki w formacie JSON.
+
+   5. Metoda: `calendarDispositionReadFromDatabase` -> Pobiera dyspozycje użytkownika z bazy danych.
+   
+      *Opis*: Metoda ta pobiera dyspozycje konkretnego użytkownika z bazy danych na podstawie identyfikatora użytkownika (userId). Wykorzystuje obiekt CalendarService,            który wykonuje odpowiednie zapytanie do bazy danych i zwraca wyniki w formie JSON.
+
+__Obsługa stron__
+
+   1. Metoda: `calendarManagerPage` -> Wyświetla stronę zarządzania kalendarzem dla menedżera.
+   
+      *Opis*: Metoda ta odpowiedzialna jest za wyświetlanie strony kalendarza dla menedżera. Przed wyświetleniem strony pobiera dane menedżera z bazy danych i przekazuje je        do widoku (strony) w celu wyświetlenia odpowiednich informacji.
+
+   2. Metoda: `calendarWorkerPage` -> Wyświetla stronę kalendarza dla pracownika.
+   
+      *Opis*: Metoda ta odpowiedzialna jest za wyświetlanie strony kalendarza dla pracownika. Przed wyświetleniem strony pobiera dane pracownika z bazy danych i przekazuje        je do widoku (strony) w celu wyświetlenia odpowiednich informacji.
+
+   3. Metoda: `calendarWorkerDispositionPage` -> Wyświetla stronę z dyspozycjami dla pracownika.
+   
+      *Opis*: Metoda ta odpowiedzialna jest za wyświetlanie strony z dyspozycjami dla pracownika. Przed wyświetleniem strony pobiera dane pracownika z bazy danych i                przekazuje je do widoku (strony) w celu wyświetlenia odpowiednich informacji.
+
+
