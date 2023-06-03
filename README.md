@@ -1,7 +1,7 @@
 # ShiftMate
 
 ## 1. Strona tytułowa
-Dokumentacja ShiftMate - tworzenie grafików w organizacjach. 
+Dokumentacja ShiftMate - tworzenie grafików w organizacjach. <br>
 Przeznaczenie: Dokumentacja jest przeznaczona zarówno dla użytkowników i programistów. 
 ## 2. Spis treści
 1. [Strona tytułowa](#1-strona-tytułowa)
